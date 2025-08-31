@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CommHelpr - AI-Powered Civic Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="images/logo.png" alt="CommHelpr Logo" class="logo">
+                <span class="brand-name">CommHelpr</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="map.html" class="nav-link">LocalLens Map</a>
+                <a href="chat.html" class="nav-link">LifeSignals AI</a>
+                <a href="data.html" class="nav-link">Data & Integration</a> 
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Your AI-Powered Gateway to 
+                    <span id="cycling-word" style="color: var(--accent-color); font-weight: 600;">community</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Making Gold Coast City Council and community services accessible, intuitive, and responsive through intelligent AI assistance and real-time mapping.
+                </p>
+                <div class="hero-buttons">
+                    <a href="chat.html" class="btn btn-primary">
+                        <i class="fas fa-robot"></i>
+                        Try LifeSignals AI
+                    </a>
+                    <a href="map.html" class="btn btn-secondary">
+                        <i class="fas fa-map-marked-alt"></i>
+                        Explore LocalLens
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card card-1">
+                    <i class="fas fa-hospital"></i>
+                    <span>Free Health Check<br>Southport - 3km</span>
+                </div>
+                <div class="floating-card card-2">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Scam Shield<br>Active</span>
+                </div>
+                <div class="floating-card card-3">
+                    <i class="fas fa-map"></i>
+                    <span>Real-time<br>Service Map</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Cycling words for hero section
+        document.addEventListener('DOMContentLoaded', function() {
+            const words = ["community", "help", "support", "fun"];
+            let idx = 0;
+            const cyclingWord = document.getElementById('cycling-word');
+            setInterval(() => {
+                idx = (idx + 1) % words.length;
+                cyclingWord.textContent = words[idx];
+            }, 1800);
+        });
+    </script>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Core Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>LifeSignals AI Agent</h3>
+                    <p>Intelligent prompts tailored to your needs. Get step-by-step guidance, discover relevant programs, and stay protected from scams with our AI-powered assistant.</p>
+                    <ul class="feature-list">
+                        <li>Plain language explanations</li>
+                        <li>Proactive service suggestions</li>
+                        <li>Scam verification shield</li>
+                        <li>24/7 availability</li>
+                    </ul>
+                    <a href="chat.html" class="feature-link">Try LifeSignals <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>LocalLens Interactive Map</h3>
+                    <p>Real-time, AI-curated map of Gold Coast Council and community services. See live status, capacity, and urgent updates all in one place.</p>
+                    <ul class="feature-list">
+                        <li>Live service status</li>
+                        <li>Community event pins</li>
+                        <li>Emergency mode alerts</li>
+                        <li>Civic pulse reports</li>
+                    </ul>
+                    <a href="map.html" class="feature-link">Explore Map <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo">
+        <div class="container">
+            <h2 class="section-title">See CommHelpr in Action</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="demo-preview">
+                        <div class="chat-preview">
+                            <div class="chat-message bot">
+                                <i class="fas fa-robot"></i>
+                                <p>Hi! I noticed you're in Surfers Paradise. There's a free health screening at Southport Community Centre today with appointments available. Would you like me to book you in?</p>
+                            </div>
+                            <div class="chat-message user">
+                                <p>Yes, that sounds great!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>Smart Proactive Assistance</h3>
+                    <p>LifeSignals AI detects your Gold Coast location and needs to offer timely, relevant service suggestions.</p>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="demo-preview">
+                        <div class="map-preview">
+                            <div class="map-pin pin-red">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="map-pin pin-green">
+                                <i class="fas fa-hospital"></i>
+                            </div>
+                            <div class="map-pin pin-blue">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="status-overlay">
+                                <span class="status-open">Library: Open</span>
+                                <span class="status-busy">Health Hub: Busy</span>
+                                <span class="status-alert">Surf Alert</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>Real-Time Service Mapping</h3>
+                    <p>LocalLens shows live status of all Gold Coast services, from council offices to community events.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">What Can CommHelpr Help You With?</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <i class="fas fa-home"></i>
+                    <h4>Housing & Benefits</h4>
+                    <p>Find Gold Coast housing assistance, apply for council benefits, and get rental support guidance.</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-medkit"></i>
+                    <h4>Healthcare Services</h4>
+                    <p>Locate Gold Coast Health clinics, book appointments, and find emergency medical services.</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h4>Education & Training</h4>
+                    <p>Discover TAFE programs, council training, and skill development opportunities on the Gold Coast.</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Safety & Emergency</h4>
+                    <p>Access emergency services, report issues, and stay informed during beach and weather emergencies.</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-users"></i>
+                    <h4>Community Events</h4>
+                    <p>Find Gold Coast events, surf competitions, volunteer opportunities, and community gatherings.</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-file-alt"></i>
+                    <h4>Council Services</h4>
+                    <p>Apply for permits, access council documents, and complete paperwork online.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Ready to Transform Gold Coast Services?</h3>
+                    <p>CommHelpr is designed to work with Gold Coast City Council and local communities to create more accessible, responsive civic services.</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <span>hello@commhelpr.goldcoast.qld.gov.au</span>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-phone"></i>
+                            <span>1300-GOLD-HELP</span>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Gold Coast City Council Partnership</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <input type="text" placeholder="Organization/Council Department">
+                        <textarea placeholder="How can CommHelpr help the Gold Coast community?" rows="4" required></textarea>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/logo.png" alt="CommHelpr Logo" class="footer-logo">
+                    <p>Making Gold Coast civic services accessible to everyone through AI-powered assistance.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Platform</h4>
+                        <a href="map.html">LocalLens Map</a>
+                        <a href="chat.html">LifeSignals AI</a>
+                        <a href="data.html">Data & Integration</a>
+                        <a href="#services">Services</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Support</h4>
+                        <a href="#contact">Contact Us</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CommHelpr. Empowering Gold Coast communities through technology.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Emergency Alert Banner (Hidden by default) -->
+    <div id="emergency-banner" class="emergency-banner" style="display: none;">
+        <div class="emergency-content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="emergency-text">Emergency Alert: Severe weather warning in effect for Gold Coast</span>
+            <button id="emergency-close">&times;</button>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (hamburger) {
+                hamburger.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+
+            // Emergency banner functionality
+            const emergencyBanner = document.getElementById('emergency-banner');
+            const emergencyClose = document.getElementById('emergency-close');
+            
+            if (emergencyClose) {
+                emergencyClose.addEventListener('click', () => {
+                    emergencyBanner.style.display = 'none';
+                });
+            }
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Contact form submission
+            const contactForm = document.querySelector('.contact-form form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for your interest! We\'ll be in touch soon.');
+                    this.reset();
+                });
+            }
+
+            // Simulate emergency alert (for demo)
+            setTimeout(() => {
+                if (Math.random() > 0.7) {
+                    showEmergencyAlert();
+                }
+            }, 8000);
+        });
+
+        function showEmergencyAlert() {
+            const banner = document.getElementById('emergency-banner');
+            if (banner) {
+                banner.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>How Data Was Used in CommHelpr</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js CDN for data visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .data-section {
+            max-width: 700px;
+            margin: 2rem auto;
+            background: #fffde7;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 24px rgba(33,150,243,0.08);
+        }
+        .data-section h1 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        .data-section h2 {
+            color: var(--accent-color);
+            margin-top: 2rem;
+        }
+        .data-section p {
+            margin-bottom: 1.2rem;
+        }
+        .visual-section {
+            max-width: 700px;
+            margin: 2rem auto;
+            background: #f5f5f5;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 24px rgba(33,150,243,0.08);
+        }
+        .visual-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .chart-container {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        canvas {
+            max-width: 100%;
+            height: 300px !important;
+        }
+        .navbar {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="images/logo.png" alt="CommHelpr Logo" class="logo" style="height:32px;vertical-align:middle;margin-right:12px;">
+                <span class="brand-name">CommHelpr</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="map.html" class="nav-link">LocalLens Map</a>
+                <a href="chat.html" class="nav-link">LifeSignals AI</a>
+                <a href="data.html" class="nav-link active">Data & Integration</a>
+                <a href="index.html#services" class="nav-link">Services</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="data-section">
+        <h1>How Data Was Used in CommHelpr</h1>
+        <h2>1. Administrative Boundaries Datasets</h2>
+        <p>
+            Administrative boundaries (including Protected Areas and Native Titles) provide the geographic backbone for <strong>LocalLens</strong>. All government offices, service centres, and community pins are anchored to accurate council, state, and territory boundaries. This ensures the map is precise and reliable, while also respecting protected lands and Native Title regions, so that services displayed are relevant and appropriate to those communities.
+        </p>
+        <h2>2. ABS Indigenous Population Data</h2>
+        <p>
+            The ABS Indigenous Population Data adds an equity and inclusivity lens to <strong>LifeSignals</strong> and Civic Pulse Reports. It helps identify areas with significant Indigenous populations, allowing the AI to highlight culturally relevant programs and surface Indigenous-led initiatives within the Community Services. It also supports features like translation and multi-language accessibility, making CommHelpr more inclusive for Indigenous residents and communities.
+        </p>
+        <h2>3. 20 Minute Neighbourhood Overview</h2>
+        <p>
+            The 20 Minute Neighbourhood dataset shapes the accessibility layer of <strong>LocalLens</strong>. It shows which services and amenities are available within a short walking, cycling, or public transport distance. This data supports LifeSignals nudges such as: “A free workshop is only 15 minutes away by bus — would you like directions?” It encourages local, sustainable service use while also highlighting nearby opportunities.
+        </p>
+    </div>
+
+    <!-- Data Visualizations -->
+    <div class="visual-section">
+        <h2>Data Visualizations</h2>
+        <div class="chart-container">
+            <h3>Indigenous Population by Region</h3>
+            <canvas id="indigenousChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Service Accessibility (20 Minute Neighbourhood)</h3>
+            <canvas id="accessChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Service Types in Protected Areas</h3>
+            <canvas id="serviceTypeChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Indigenous Population by Region (example data)
+        new Chart(document.getElementById('indigenousChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Southport', 'Robina', 'Burleigh', 'Palm Beach', 'Helensvale'],
+                datasets: [{
+                    label: 'Indigenous Population',
+                    data: [1200, 800, 600, 400, 300],
+                    backgroundColor: 'rgba(255, 179, 0, 0.7)'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // Service Accessibility (example data)
+        new Chart(document.getElementById('accessChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Accessible', 'Not Accessible'],
+                datasets: [{
+                    data: [75, 25],
+                    backgroundColor: [
+                        'rgba(33, 150, 243, 0.7)',
+                        'rgba(255, 112, 67, 0.7)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+
+        // Service Types in Protected Areas (example data)
+        new Chart(document.getElementById('serviceTypeChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Health', 'Community', 'Housing', 'Education', 'Emergency'],
+                datasets: [{
+                    data: [10, 8, 5, 7, 3],
+                    backgroundColor: [
+                        'rgba(67, 160, 71, 0.7)',
+                        'rgba(33, 150, 243, 0.7)',
+                        'rgba(255, 179, 0, 0.7)',
+                        'rgba(255, 112, 67, 0.7)',
+                        'rgba(38, 198, 218, 0.7)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+    </script>
+</body>
+</html>
