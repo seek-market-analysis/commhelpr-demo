@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeSignals AI - Your Gold Coast Civic Assistant | CommHelpr</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="chat-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+      
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="images/logo.png" alt="CommHelpr Logo" class="logo">
+                <span class="brand-name">CommHelpr</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="map.html" class="nav-link">LocalLens Map</a>
+                <a href="chat.html" class="nav-link active">LifeSignals AI</a>
+                <a href="data.html" class="nav-link">Data & Integration</a>
+                <a href="index.html#services" class="nav-link">Services</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Chat Interface -->
+    <div class="chat-container">
+        <div class="chat-sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-robot"></i> LifeSignals AI</h3>
+                <p>Your intelligent Gold Coast civic assistant</p>
+            </div>
+            
+            <div class="quick-actions-chat">
+                <h4>Quick Actions</h4>
+                <button class="quick-action-btn" onclick="sendQuickMessage('I need help with housing assistance in Gold Coast')">
+                    <i class="fas fa-home"></i>
+                    Housing Help
+                </button>
+                <button class="quick-action-btn" onclick="sendQuickMessage('Where can I get medical care on the Gold Coast?')">
+                    <i class="fas fa-medkit"></i>
+                    Medical Care
+                </button>
+                <button class="quick-action-btn" onclick="sendQuickMessage('I received a suspicious text message claiming to be from Gold Coast Council')">
+                    <i class="fas fa-shield-alt"></i>
+                    Scam Check
+                </button>
+                <button class="quick-action-btn" onclick="sendQuickMessage('What Gold Coast community events are happening this week?')">
+                    <i class="fas fa-calendar"></i>
+                    Events
+                </button>
+                <button class="quick-action-btn" onclick="sendQuickMessage('Gold Coast beach conditions and safety')">
+                    <i class="fas fa-umbrella-beach"></i>
+                    Beach Info
+                </button>
+            </div>
+
+            <div class="ai-features">
+                <h4>AI Capabilities</h4>
+                <div class="feature-item">
+                    <i class="fas fa-language"></i>
+                    <span>Plain language explanations</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Proactive suggestions</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Scam verification</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Gold Coast location-aware</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-main">
+            <div class="chat-header">
+                <div class="status-indicator">
+                    <span class="status-dot online"></span>
+                    <span>LifeSignals AI Online - Gold Coast Ready</span>
+                </div>
+                <div class="chat-actions">
+                    <button id="clear-chat" class="btn btn-small">
+                        <i class="fas fa-trash"></i> Clear Chat
+                    </button>
+                </div>
+            </div>
+
+            <div id="chat-messages" class="chat-messages">
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <p>G'day! I'm LifeSignals, your AI assistant for Gold Coast services. I can help you:</p>
+                            <ul>
+                                <li>Find Gold Coast City Council services</li>
+                                <li>Verify suspicious messages for scams</li>
+                                <li>Discover community events and beach activities</li>
+                                <li>Navigate council paperwork and applications</li>
+                                <li>Check beach conditions and safety alerts</li>
+                            </ul>
+                            <p>How can I assist you today?</p>
+                        </div>
+                        <div class="message-time">Just now</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <div class="input-wrapper">
+                    <input type="text" id="chat-input" placeholder="Ask me anything about Gold Coast services..." autocomplete="off">
+                    <button id="send-btn" class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-hints">
+                    <span class="hint" onclick="sendQuickMessage('How do I apply for Gold Coast rental assistance?')">Rental assistance</span>
+                    <span class="hint" onclick="sendQuickMessage('Check this text: You won $1000 from Gold Coast Council! Click here')">Scam check</span>
+                    <span class="hint" onclick="sendQuickMessage('What Gold Coast services are near Surfers Paradise?')">Nearby services</span>
+                    <span class="hint" onclick="sendQuickMessage('Beach safety alerts today')">Beach alerts</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scam Alert Modal -->
+    <div id="scam-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-shield-alt"></i> Scam Detection Result</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="scam-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let chatHistory = [];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setupChatInterface();
+        });
+
+        function setupChatInterface() {
+            const chatInput = document.getElementById('chat-input');
+            const sendBtn = document.getElementById('send-btn');
+            const clearBtn = document.getElementById('clear-chat');
+            
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            sendBtn.addEventListener('click', sendMessage);
+            clearBtn.addEventListener('click', clearChat);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addMessage(message, 'user');
+            input.value = '';
+            
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                hideTypingIndicator();
+                handleAIResponse(message);
+            }, 1500);
+        }
+
+        function sendQuickMessage(message) {
+            addMessage(message, 'user');
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                hideTypingIndicator();
+                handleAIResponse(message);
+            }, 1500);
+        }
+
+        function addMessage(content, sender) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-${sender === 'user' ? 'user' : 'robot'}"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-bubble">
+                        <p>${content}</p>
+                    </div>
+                    <div class="message-time">${time}</div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            chatHistory.push({content, sender, time});
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot-message typing-indicator';
+            typingDiv.id = 'typing-indicator';
+            
+            typingDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-bubble">
+                        <div class="loading"></div>
+                    </div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        function handleAIResponse(userMessage) {
+            let response = generateGoldCoastAIResponse(userMessage);
+            addMessage(response, 'bot');
+            
+            // Check for scam detection
+            if (
+                userMessage.toLowerCase().includes('suspicious') ||
+                userMessage.toLowerCase().includes('scam') ||
+                userMessage.toLowerCase().includes('text message')
+            ) {
+                setTimeout(() => {
+                    showScamDetectionResult(userMessage);
+                }, 1000);
+            }
+        }
+
+        function generateGoldCoastAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+
+            if (lowerMessage.includes('housing') || lowerMessage.includes('rental')) {
+                return `I can help you with Gold Coast housing assistance. Based on your location in Surfers Paradise, you have a few options: The Gold Coast Rental Relief Program offers up to $3,000 for eligible residents, and there’s a social housing wait list with priority assessments available. You can also apply for interest-free bond loans up to $7,400, or get tenancy advice at the Housing Services office on Cavill Ave. The office is about 800 metres from Surfers Paradise and currently has a 50-minute wait. Would you like me to book you an appointment or provide more details about eligibility?`;
+            }
+
+            if (lowerMessage.includes('medical') || lowerMessage.includes('health') || lowerMessage.includes('dental')) {
+                return `Great news! There are several healthcare options nearby. The free health screening van is at Southport Central today until 4 PM, and the Gold Coast Health Hub in Southport offers bulk-billing with a 20-minute wait. If you need dental care, the emergency clinic at Robina Town Centre is open on weekends. For mental health support, you can visit the walk-in centre in Nerang without an appointment. Would you like directions or help booking an appointment?`;
+            }
+
+            if (lowerMessage.includes('scam') || lowerMessage.includes('suspicious') || lowerMessage.includes('text')) {
+                return `I can help you check if a message is really from Gold Coast City Council. I’ll look at the sender, the content, and any links to see if they match official council communications. Remember, the council will never ask for your bank details, passwords, or immediate payments by text. If you share the suspicious message, I’ll analyse it for you. What did the message say?`;
+            }
+
+            if (lowerMessage.includes('beach') || lowerMessage.includes('surf') || lowerMessage.includes('safety')) {
+                return `Here’s the latest beach information for the Gold Coast: Surfers Paradise Beach is patrolled and safe for swimming today, with gentle waves. Burleigh Heads has moderate surf for experienced swimmers, and Currumbin Beach is calm and family-friendly. Please note there are strong rip currents at some beaches and the UV index is very high, so take care if you’re heading out. Would you like surf lesson info, details about beach events, or emergency contact numbers?`;
+            }
+
+            if (lowerMessage.includes('event') || lowerMessage.includes('community')) {
+                return `There are some great community events happening this week. The Broadbeach Markets are on this weekend with local produce and crafts, and Currumbin Wildlife Sanctuary has daily shows about Aboriginal culture. Surfers Paradise Night Markets run on Wednesday and Friday evenings, and there’s a free group run for the Gold Coast Marathon training on Saturday morning. If you’re interested in gardening, there’s a workshop in Robina on Thursday afternoon. Would you like more details or help adding any of these to your calendar?`;
+            }
+
+            if (lowerMessage.includes('transport') || lowerMessage.includes('tram') || lowerMessage.includes('bus')) {
+                return `Here’s some transport info for the Gold Coast: The G:link light rail stops at Surfers Paradise Station, with the next tram in about six minutes. Bus Route 700 runs express to Brisbane and stops at Cavill Ave. You can top up your Go Card at any station or 7-Eleven, and accessible transport is available if you need it. There’s also free parking at Helensvale and Parkwood stations. Where are you headed? I can help plan your route or check for service updates.`;
+            }
+
+            if (lowerMessage.includes('council') || lowerMessage.includes('permit') || lowerMessage.includes('application')) {
+                return `I can help you with Gold Coast City Council services like building permits, pool installations, business licenses, rates, and waste bookings. Most applications can be started online and take about 10 to 21 business days, and some require site inspections. Which type of permit or service do you need help with? I can guide you through the requirements step by step.`;
+            }
+
+            return `Hi! I’m here to help you with Gold Coast services and community resources. You can ask me about council services, healthcare, housing support, transport, beach safety, community events, or scam protection. What would you like help with today?`;
+        }
+
+        function showScamDetectionResult(message) {
+            const modal = document.getElementById('scam-modal');
+            const result = document.getElementById('scam-result');
+            
+            // Simulate scam analysis for Gold Coast context
+            const lowerMsg = message.toLowerCase();
+            const isScam =
+                lowerMsg.includes('won') ||
+                lowerMsg.includes('click here') ||
+                lowerMsg.includes('urgent') ||
+                lowerMsg.includes('prize') ||
+                lowerMsg.includes('verify account');
+            
+            if (isScam) {
+                result.innerHTML = `
+                    <div class="scam-warning">
+                        <i class="fas fa-exclamation-triangle" style="color: #ef4444; font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <h4 style="color: #ef4444;">⚠️ LIKELY SCAM DETECTED</h4>
+                        <p>This message shows signs of being fraudulent and <strong>NOT from Gold Coast City Council:</strong></p>
+                        <ul>
+                            <li>Promises unrealistic prizes or money</li>
+                            <li>Creates false urgency or threatens account closure</li>
+                            <li>Requests immediate action or personal details</li>
+                            <li>Poor grammar or unofficial sender address</li>
+                        </ul>
+                        <p><strong>What to do:</strong></p>
+                        <ul>
+                            <li>Do not click any links or provide information</li>
+                            <li>Delete the message immediately</li>
+                            <li>Report to ACCC ScamWatch if requested money</li>
+                        </ul>
+                        <p><em>Real Gold Coast Council communications come from official @goldcoast.qld.gov.au addresses and never ask for passwords or immediate payments.</em></p>
+                    </div>
+                `;
+            } else {
+                result.innerHTML = `
+                    <div class="scam-safe">
+                        <i class="fas fa-shield-alt" style="color: #10b981; font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <h4 style="color: #10b981;">✅ APPEARS LEGITIMATE</h4>
+                        <p>This message doesn't show obvious scam indicators, but always verify by:</p>
+                        <ul>
+                            <li>Checking the sender is from @goldcoast.qld.gov.au</li>
+                            <li>Calling Gold Coast Council directly on 1300 465 326</li>
+                            <li>Visiting the official website: goldcoast.qld.gov.au</li>
+                            <li>Never sharing passwords, PINs, or bank details</li>
+                        </ul>
+                        <p><strong>When in doubt:</strong> Contact the council directly using official channels to verify any requests for information or payments.</p>
+                    </div>
+                `;
+            }
+            
+            modal.style.display = 'block';
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Close modal with close button
+            modal.querySelector('.modal-close').addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+        }
+
+        function clearChat() {
+            const messagesContainer = document.getElementById('chat-messages');
+            chatHistory = [];
+            
+            // Keep the welcome message
+            messagesContainer.innerHTML = `
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <p>G'day! I'm LifeSignals, your AI assistant for Gold Coast services. I can help you:</p>
+                            <ul>
+                                <li>Find Gold Coast City Council services</li>
+                                <li>Verify suspicious messages for scams</li>
+                                <li>Discover community events and beach activities</li>
+                                <li>Navigate council paperwork and applications</li>
+                                <li>Check beach conditions and safety alerts</li>
+                            </ul>
+                            <p>How can I assist you today?</p>
+                        </div>
+                        <div class="message-time">Just now</div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

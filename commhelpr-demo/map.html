@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalLens - Interactive Service Map | CommHelpr</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" rel="stylesheet">
+</head>
+<body class="map-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="images/logo.png" alt="CommHelpr Logo" class="logo">
+                <span class="brand-name">CommHelpr</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="map.html" class="nav-link active">LocalLens Map</a>
+                <a href="chat.html" class="nav-link">LifeSignals AI</a>
+                <a href="data.html" class="nav-link">Data & Integration</a>
+                <a href="index.html#services" class="nav-link">Services</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Map Controls -->
+    <div class="map-controls">
+        <div class="control-panel">
+            <h3><i class="fas fa-layer-group"></i> Map Layers</h3>
+            <div class="layer-toggles">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="gov-services" checked>
+                    <span class="slider"></span>
+                    <span class="label">Council Services</span>
+                </label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="community-layer" checked>
+                    <span class="slider"></span>
+                    <span class="label">Community Layer</span>
+                </label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="emergency-mode">
+                    <span class="slider"></span>
+                    <span class="label">Emergency Mode</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="filter-panel">
+            <h3><i class="fas fa-filter"></i> Filters</h3>
+            <div class="filter-options">
+                <select id="service-type">
+                    <option value="all">All Services</option>
+                    <option value="health">Healthcare</option>
+                    <option value="housing">Housing</option>
+                    <option value="education">Education</option>
+                    <option value="transport">Transport</option>
+                    <option value="community">Community</option>
+                    <option value="beach">Beach Services</option>
+                </select>
+                <select id="availability">
+                    <option value="all">All Status</option>
+                    <option value="open">Open Now</option>
+                    <option value="available">Available</option>
+                    <option value="busy">Busy</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="legend-panel">
+            <h3><i class="fas fa-info-circle"></i> Legend</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #4CAF50;"></span>
+                    <span>Open & Available</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #FF9800;"></span>
+                    <span>Busy / Limited</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #F44336;"></span>
+                    <span>Closed / Emergency</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #2196F3;"></span>
+                    <span>Community Events</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Container -->
+    <div id="map" class="map-container"></div>
+
+    <!-- Service Details Panel -->
+    <div id="service-panel" class="service-panel">
+        <div class="panel-header">
+            <h3 id="service-title">Service Details</h3>
+            <button id="close-panel" class="close-btn">&times;</button>
+        </div>
+        <div class="panel-content">
+            <div id="service-info">
+                <p>Select a service on the map to view details</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Alert -->
+    <div id="emergency-alert" class="emergency-alert" style="display: none;">
+        <div class="alert-content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div class="alert-text">
+                <h4>Emergency Alert Active</h4>
+                <p id="alert-message">Severe weather warning - check evacuation routes for Gold Coast</p>
+            </div>
+            <button id="alert-dismiss" class="btn btn-small">Dismiss</button>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        <button class="quick-btn" onclick="findNearestService('health')">
+            <i class="fas fa-hospital"></i>
+            <span>Health</span>
+        </button>
+        <button class="quick-btn" onclick="findNearestService('transport')">
+            <i class="fas fa-bus"></i>
+            <span>Transport</span>
+        </button>
+        <button class="quick-btn" onclick="showEmergencyServices()">
+            <i class="fas fa-ambulance"></i>
+            <span>Emergency</span>
+        </button>
+        <button class="quick-btn" onclick="findNearestService('beach')">
+            <i class="fas fa-umbrella-beach"></i>
+            <span>Beach</span>
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="js/map.js"></script>
+</body>
+</html>
